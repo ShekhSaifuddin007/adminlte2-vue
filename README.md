@@ -1,4 +1,4 @@
-# gph
+# adminLte-2 with vue setup
 
 ## Project setup
 ```
