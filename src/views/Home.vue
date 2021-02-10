@@ -1,18 +1,103 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <AppLayout header-text="Dashboard One">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+              <span class="info-box-icon bg-aqua"
+                  ><i class="ion ion-ios-gear-outline"></i
+              ></span>
+
+              <div class="info-box-content">
+                  <span class="info-box-text">CPU Traffic</span>
+                  <span class="info-box-number">90<small>%</small></span>
+              </div>
+          <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+          <span class="info-box-icon bg-red"
+              ><i class="fa fa-google-plus"></i
+          ></span>
+
+          <div class="info-box-content">
+              <span class="info-box-text">Likes</span>
+              <span class="info-box-number">41,410</span>
+          </div>
+          <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+
+      <!-- fix for small devices only -->
+      <div class="clearfix visible-sm-block"></div>
+
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+          <span class="info-box-icon bg-green"
+              ><i class="ion ion-ios-cart-outline"></i
+          ></span>
+
+          <div class="info-box-content">
+              <span class="info-box-text">Sales</span>
+              <span class="info-box-number">760</span>
+          </div>
+          <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+          <span class="info-box-icon bg-yellow"
+              ><i class="ion ion-ios-people-outline"></i
+          ></span>
+
+          <div class="info-box-content">
+              <span class="info-box-text">New Members</span>
+              <span class="info-box-number">2,000</span>
+          </div>
+          <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+      </div>
+    <!-- /.col -->
+    </div>
+
+    <div class="row">
+        <div style="padding: 10px 40px">
+            <p v-for="(post, index) in posts" :key="index">{{ post.title }}</p>
+        </div>
+    </div>
+  </AppLayout>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import AppLayout from '@/layouts/AppLayout';
 
 export default {
   name: "Home",
-  components: {
-    HelloWorld
+  components: { AppLayout },
+  data: () => ({
+    posts : []
+  }),
+
+  mounted() {
+      this.getPosts()
+  },
+  methods: {
+      getPosts() {
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+                    .then(response => {
+                        this.posts = response.data
+                        console.log(response.data)
+                })
+      }
   }
 };
 </script>
+
+<style scoped></style>
