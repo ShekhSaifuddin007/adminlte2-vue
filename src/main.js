@@ -1,12 +1,14 @@
-import Vue from "vue";
+import Vue from "vue"
 import './plugins/axios'
-
-// import ax from 'axios';
-import App from "./App.vue";
-import router from "./router";
-// window.axios = ax;
+import DataTable from 'laravel-vue-datatable'
+import App from "./App.vue"
+import router from "./router"
 
 Vue.config.productionTip = false;
+
+// uses plugins
+
+Vue.use(DataTable)
 
 new Vue({
     router,
