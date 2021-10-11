@@ -1,6 +1,5 @@
 <template>
   <AppLayout header-text="Dashboard One" title="Dashboard">
-
     <div class="box box-default">
 
 			<div class="box-header with-border">
