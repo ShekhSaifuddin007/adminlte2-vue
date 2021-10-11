@@ -1,103 +1,94 @@
 <template>
-  <AppLayout header-text="Dashboard One">
-    <div class="row">
-      <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-              <span class="info-box-icon bg-aqua"
-                  ><i class="ion ion-ios-gear-outline"></i
-              ></span>
+  <AppLayout header-text="Dashboard One" title="Dashboard">
 
-              <div class="info-box-content">
-                  <span class="info-box-text">CPU Traffic</span>
-                  <span class="info-box-number">90<small>%</small></span>
-              </div>
-          <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
+    <div class="box box-default">
+
+			<div class="box-header with-border">
+				<h3 class="box-title">Complain Details</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+				</div>
+			</div>
+
+			<div class="box-body">
+				<div class="margin">
+					<div class="btn-group">
+            <a href="#" class="btn-success btn btn-sm button btn-flat pull-left" style="font-size: 12px; font-weight: bold;">
+              <i class="glyphicon glyphicon-plus"></i> Create New
+            </a>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+            <Datatable
+              :columns="columns"
+              remote-url="http://127.0.0.1:8999/slap_info_list-test"
+            >
+
+            <!-- https://jsonplaceholder.typicode.com/posts -->
+              <thead>
+                <tr>
+                  <tr role="row">
+                    <th></th>
+                    <th>#</th>
+                    <th>Main Category</th>
+                    <th>Category</th>
+                    <th>Demand Charge</th>
+                    <th>Action</th>
+                </tr>
+              </thead>
+            </Datatable>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+    <!-- <div class="row">
+      <div style="padding: 10px 40px">
+        <p v-for="(post, index) in posts" :key="index">
+          {{ post.title }}
+        </p>
       </div>
-      <!-- /.col -->
-      <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-          <span class="info-box-icon bg-red"
-              ><i class="fa fa-google-plus"></i
-          ></span>
-
-          <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
-              <span class="info-box-number">41,410</span>
-          </div>
-          <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-      </div>
-      <!-- /.col -->
-
-      <!-- fix for small devices only -->
-      <div class="clearfix visible-sm-block"></div>
-
-      <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-          <span class="info-box-icon bg-green"
-              ><i class="ion ion-ios-cart-outline"></i
-          ></span>
-
-          <div class="info-box-content">
-              <span class="info-box-text">Sales</span>
-              <span class="info-box-number">760</span>
-          </div>
-          <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-      </div>
-      <!-- /.col -->
-      <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-          <span class="info-box-icon bg-yellow"
-              ><i class="ion ion-ios-people-outline"></i
-          ></span>
-
-          <div class="info-box-content">
-              <span class="info-box-text">New Members</span>
-              <span class="info-box-number">2,000</span>
-          </div>
-          <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-      </div>
-    <!-- /.col -->
-    </div>
-
-    <div class="row">
-        <div style="padding: 10px 40px">
-            <p v-for="(post, index) in posts" :key="index">{{ post.title }}</p>
-        </div>
-    </div>
+    </div> -->
   </AppLayout>
 </template>
 
 <script>
 import AppLayout from '@/layouts/AppLayout';
+import Datatable from '@/components/Datatable';
 
 export default {
   name: "Home",
-  components: { AppLayout },
-  data: () => ({
-    posts : []
-  }),
+  components: { AppLayout, Datatable },
+  data() {
+    return {
+      columns: [
+        { data: "id" },
+        {
+          className: 'details-control',
+          orderable: false,
+          data: null,
+          defaultContent: ''
+        },
+        { data: "main_category_name" },
+        { data: "category_name" },
+        { data: "demand_charge" },
+        { data: "Link", orderable: false, searchable: false }
+      ]
+    }
+  },
 
   mounted() {
-      this.getPosts()
-  },
-  methods: {
-      getPosts() {
-        axios.get('https://jsonplaceholder.typicode.com/posts')
-                    .then(response => {
-                        this.posts = response.data
-                        console.log(response.data)
-                })
-      }
+    axios.post('http://127.0.0.1:8999/slap_info_list-test')
+      .then(({ data }) => {
+        console.log(data)
+      })
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

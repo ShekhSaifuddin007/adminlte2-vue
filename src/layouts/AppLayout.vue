@@ -17,9 +17,22 @@ export default {
         headerText: {
             type: String,
             required: true,
+        },
+        title: {
+            type: String,
+            required: true,
         }
     },
     components: { ContentHeader },
+
+    watch: {
+        title: {
+            immediate: true,
+            handler(title) {
+                document.title = `Account | ${title}`
+            },
+        },
+    },
 }
 </script>
 

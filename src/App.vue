@@ -10,14 +10,7 @@
       <!-- /.content -->
     </div>
 
-    <footer class="main-footer">
-      <div class="pull-right hidden-xs"><b>Version</b> 2.4.18</div>
-      <strong
-        >Copyright &copy; 2014-2019
-        <a href="https://adminlte.io">AdminLTE</a>.</strong
-      >
-      All rights reserved.
-    </footer>
+    <SiteFooter/>
 
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Create the tabs -->
@@ -242,14 +235,18 @@
 <script>
 import Header from "@/components/Header";
 import SideBar from "@/components/SideBar";
+import SiteFooter from '@/components/SiteFooter.vue';
 
 export default {
     name: "App",
     components: {
         Header,
-        SideBar
+        SideBar,
+        SiteFooter
     }
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

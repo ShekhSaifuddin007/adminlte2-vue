@@ -1,10 +1,11 @@
+require('./bootstrap')
+
 import Vue from "vue";
 import './plugins/axios'
 
-// import ax from 'axios';
 import App from "./App.vue";
 import router from "./router";
-// window.axios = ax;
+
 
 Vue.config.productionTip = false;
 
