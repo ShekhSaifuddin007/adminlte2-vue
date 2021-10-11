@@ -22,10 +22,9 @@
 					<div class="col-sm-12">
             <Datatable
               :columns="columns"
-              remote-url="http://127.0.0.1:8999/slap_info_list-test"
+              remote-url="http://spcbl.test/slap_info_list-test"
+              :collapse-data="collapseData"
             >
-
-            <!-- https://jsonplaceholder.typicode.com/posts -->
               <thead>
                 <tr>
                   <tr role="row">
@@ -43,14 +42,6 @@
 
 			</div>
 		</div>
-
-    <!-- <div class="row">
-      <div style="padding: 10px 40px">
-        <p v-for="(post, index) in posts" :key="index">
-          {{ post.title }}
-        </p>
-      </div>
-    </div> -->
   </AppLayout>
 </template>
 
@@ -79,11 +70,24 @@ export default {
     }
   },
 
-  mounted() {
-    axios.post('http://127.0.0.1:8999/slap_info_list-test')
-      .then(({ data }) => {
-        console.log(data)
-      })
+  methods: {
+    collapseData(data) {
+      return `
+        <table class="table table-bordered table-hover display responsive nowrap" cellspacing="0" width="100%">
+          <tr>
+            <th>Slap Name</th>
+            <th>Unit Rate</th>
+            <th>Start Unit</th>
+            <th>End Unit</th>
+          </tr>
+          <tr>
+            <td>${data.slap_name}</td>
+            <td>${data.unit_rate}</td>
+            <td>${data.start_unit}</td>
+            <td>${data.end_unit}</td>
+          </tr>
+        </table>`;
+    }
   }
 };
 </script>

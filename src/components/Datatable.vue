@@ -30,21 +30,71 @@ export default {
         method: {
             type: String,
             default: 'POST'
-        }
+        },
+
+        collapseData: {
+            type: Function,
+            default: () => false,
+        },
+
+        destroy: {
+            type: Boolean,
+            default: true
+        },
+
+        responsive: {
+            type: Boolean,
+            default: true
+        },
+
+        processing: {
+            type: Boolean,
+            default: true
+        },
+
+        serverSide: {
+            type: Boolean,
+            default: true
+        },
+
+        paging: {
+            type: Boolean,
+            default: true
+        },
+
+        lengthChange: {
+            type: Boolean,
+            default: true
+        },
+
+        searching: {
+            type: Boolean,
+            default: true
+        },
+
+        ordering: {
+            type: Boolean,
+            default: true
+        },
+
+        info: {
+            type: Boolean,
+            default: true
+        },
     },
 
     data() {
         return {
             tableOptions: {
-                destroy:        true,
-                responsive:     true,
-                processing:     true,
-                serverSide:     true,
-                paging:         true,
-                lengthChange:   true,
-                searching:      true,
-                ordering:       true,
-                info:           true,
+                destroy:        this.destroy,
+                responsive:     this.responsive,
+                processing:     this.processing,
+                serverSide:     this.serverSide,
+                paging:         this.paging,
+                lengthChange:   this.lengthChange,
+                searching:      this.searching,
+                ordering:       this.ordering,
+                info:           this.info,
                 autoWidth:      false,
                 width:          "100%",
                 aoColumnDefs: [{ "bVisible": false, "aTargets": [0] }],
@@ -65,41 +115,23 @@ export default {
         this.$nextTick(() => {
             var table = $(this.$el).DataTable(this.tableOptions)
 
-            var _vm = this;
-
-            $('tbody').on('click', 'td.details-control', function() {
-                var tr = $(this).closest('tr');
-                var row = table.row(tr);
-                if (row.child.isShown()) { // This row is already open - close it
-                    row.child.hide();
-                    tr.removeClass('shown');
-                } else { // Open this row
-                    row.child(_vm.collapseData(row.data())).show();
-                    tr.addClass('shown');
-                }
-            });
+            if (this.collapseData) {
+                var _vm = this;
+    
+                $('tbody').on('click', 'td.details-control', function() {
+                    var tr = $(this).closest('tr');
+                    var row = table.row(tr);
+                    if (row.child.isShown()) { // This row is already open - close it
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    } else { // Open this row
+                        row.child(_vm.collapseData(row.data())).show();
+                        tr.addClass('shown');
+                    }
+                });
+            }
         })
     },
-
-    methods: {
-        collapseData(data) {
-	  	    return `
-                <table class="table table-bordered table-hover display responsive nowrap" cellspacing="0" width="100%">
-                    <tr>
-                        <th>Slap Name</th>
-                        <th>Unit Rate</th>
-                        <th>Start Unit</th>
-                        <th>End Unit</th>
-                    </tr>
-                    <tr>
-                        <td>${data.slap_name}</td>
-                        <td>${data.unit_rate}</td>
-                        <td>${data.start_unit}</td>
-                        <td>${data.end_unit}</td>
-                    </tr>
-                </table>`;
-        }
-    }
 }
 </script>
 
