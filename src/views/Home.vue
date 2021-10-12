@@ -22,7 +22,7 @@
 					<div class="col-sm-12">
             <Datatable
               :columns="columns"
-              remote-url="http://spcbl.test/slap_info_list-test"
+              remote-url="http://localhost:8999/slap_info_list-test"
               :collapse-data="collapseData"
             >
               <thead>

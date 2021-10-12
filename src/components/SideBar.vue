@@ -32,11 +32,6 @@
                 <i class="fa fa-circle-o"></i> Dashboard v1
               </router-link>
             </li>
-            <li :class="{'active' : $route.path === '/home'}">
-                <router-link to="/home">
-                  <i class="fa fa-circle-o"></i> Dashboard v2
-                </router-link>
-            </li>
           </ul>
         </li>
       </ul>
